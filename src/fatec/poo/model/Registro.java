@@ -11,10 +11,12 @@ public class Registro {
     private LocalDate dataEntrada;
     private LocalDate dataSaida;
     private double valorHospedagem; 
+    private Recepcionista recepcionista;
 
-    public Registro(int codigo, LocalDate dataEntrada) {
+    public Registro(int codigo, LocalDate dataEntrada, Recepcionista recepcionista) {
         this.codigo = codigo;
         this.dataEntrada = dataEntrada;
+        this.recepcionista = recepcionista;
     }
 
     public void setDataSaida(LocalDate dataSaida) {
