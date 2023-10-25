@@ -11,12 +11,12 @@ public class Recepcionista extends Pessoa {
     
     private int regFunc;
     private String turno;
-    private ArrayList<Registro> registro;
+    private ArrayList<Registro> registros;
 
     public Recepcionista(int regFunc, String nome){
         super(nome);
         this.regFunc = regFunc;
-        registro = new ArrayList<Registro>();
+        registros = new ArrayList<Registro>();
     }
 
     public void setTurno(String turno) {
@@ -30,9 +30,12 @@ public class Recepcionista extends Pessoa {
     public String getTurno() {
         return turno;
     }
-
  
-    
+    public void addRegistro(Registro r){
+        registros.add(r);
+        
+        r.setRecepcionista(this);
+    }
     
     
 }

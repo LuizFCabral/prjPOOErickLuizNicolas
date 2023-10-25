@@ -15,16 +15,16 @@ public class Hospede extends Pessoa {
     
     private String cpf;
     private double taxaDesconto;
-    private ArrayList<Registro> registro;
+    private ArrayList<Registro> registros;
 
     public Hospede(String cpf, String nome) {
         super(nome);
         this.cpf = cpf;
-        registro = new ArrayList<Registro>();
+        registros = new ArrayList<Registro>();
     }
 
     public void setTaxaDesconto(double taxaDesconto) {
-        this.taxaDesconto = taxaDesconto;
+        this.taxaDesconto = taxaDesconto/100;
     }
 
     public String getCpf() {
@@ -35,6 +35,10 @@ public class Hospede extends Pessoa {
         return taxaDesconto;
     }
     
-    
+    public void addRegistro(Registro r){
+        registros.add(r);
+        
+        r.setHospede(this);
+    }
     
 }

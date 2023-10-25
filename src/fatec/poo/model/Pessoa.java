@@ -9,7 +9,7 @@ package fatec.poo.model;
  *
  * @author super
  */
-public class Pessoa {
+public abstract class Pessoa {
     private String nome, endereco, telefone;
 
     public Pessoa(String nome) {
@@ -36,5 +36,5 @@ public class Pessoa {
         return telefone;
     }
     
-    
+    abstract public void addRegistro(Registro r);
 }

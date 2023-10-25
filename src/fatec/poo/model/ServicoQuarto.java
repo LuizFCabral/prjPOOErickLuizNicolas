@@ -9,7 +9,6 @@ public class ServicoQuarto {
     private int codigo;
     private String descricao;
     private double valor;
-    private Registro registro;
 
     public ServicoQuarto(int codigo, String descricao) {
         this.codigo = codigo;
