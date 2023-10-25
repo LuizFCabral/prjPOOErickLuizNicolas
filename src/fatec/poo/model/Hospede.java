@@ -5,6 +5,8 @@
  */
 package fatec.poo.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author nplay
@@ -13,10 +15,12 @@ public class Hospede extends Pessoa {
     
     private String cpf;
     private double taxaDesconto;
+    private ArrayList<Registro> registro;
 
     public Hospede(String cpf, String nome) {
         super(nome);
         this.cpf = cpf;
+        registro = new ArrayList<Registro>();
     }
 
     public void setTaxaDesconto(double taxaDesconto) {

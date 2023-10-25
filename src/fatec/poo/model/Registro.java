@@ -12,6 +12,8 @@ public class Registro {
     private LocalDate dataSaida;
     private double valorHospedagem; 
     private Recepcionista recepcionista;
+    private Hospede hospede;
+    private Quarto quarto;
 
     public Registro(int codigo, LocalDate dataEntrada, Recepcionista recepcionista) {
         this.codigo = codigo;
@@ -39,8 +41,11 @@ public class Registro {
         return valorHospedagem;
     }
     
-    public void reservarQuarto(){
+    public void reservarQuarto(Hospede hospede, Quarto quarto){
+        this.quarto = quarto;
+        this.hospede = hospede;
         
+        this.quarto.reservar();
     }
     
     public double liberarQuarto(){
