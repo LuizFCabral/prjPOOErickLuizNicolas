@@ -77,11 +77,9 @@ public class Aplic {
         objReg3.setDataSaida(LocalDate.of(2023, 11, 18));
         
         
-        objQua1
-               
-        objQua2
-        
-        objQua3
+        objSeQ1.setValor(17.98);
+        objSeQ2.setValor(26.49);
+        objSeQ3.setValor(9.99);
     }
     
 }
