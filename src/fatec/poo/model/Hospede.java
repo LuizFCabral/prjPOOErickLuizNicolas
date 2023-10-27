@@ -15,7 +15,7 @@ public class Hospede extends Pessoa {
     
     private String cpf;
     private double taxaDesconto;
-    private ArrayList<Registro> registros;
+    private ArrayList<Registro> registros;  
 
     public Hospede(String cpf, String nome) {
         super(nome);
@@ -37,7 +37,6 @@ public class Hospede extends Pessoa {
     
     public void addRegistro(Registro r){
         registros.add(r);
-        
         r.setHospede(this);
     }
     
