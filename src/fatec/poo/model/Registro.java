@@ -22,15 +22,12 @@ public class Registro {
         this.codigo = codigo;
         this.dataEntrada = dataEntrada;
         this.recepcionista = recepcionista;
+        recepcionista.addRegistro(this);
         servicosQuarto = new ArrayList<ServicoQuarto>();
     }
 
     public void setDataSaida(LocalDate dataSaida) {
         this.dataSaida = dataSaida;
-    }
-
-    public void setRecepcionista(Recepcionista recepcionista) {
-        this.recepcionista = recepcionista;
     }
 
     public void setHospede(Hospede hospede) {

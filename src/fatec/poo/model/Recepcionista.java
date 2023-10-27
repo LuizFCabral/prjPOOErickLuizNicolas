@@ -33,8 +33,6 @@ public class Recepcionista extends Pessoa {
  
     public void addRegistro(Registro r){
         registros.add(r);
-        
-        r.setRecepcionista(this);
     }
     
     
