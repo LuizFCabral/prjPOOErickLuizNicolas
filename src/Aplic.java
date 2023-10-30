@@ -34,9 +34,9 @@ public class Aplic {
         Quarto objQua2 = new Quarto(20, "S", false, 84.89);
         Quarto objQua3 = new Quarto(14, "D", false, 108.39);
         
-        Registro objReg1 = new Registro(10203, LocalDate.of(2023, 10, 22), objRec1);
+        Registro objReg1 = new Registro(10203, LocalDate.of(2023, 5, 25), objRec1);
         Registro objReg2 = new Registro(10204, LocalDate.of(2023, 11, 05), objRec2);
-        Registro objReg3 = new Registro(10205, LocalDate.of(2023, 11, 17), objRec1);
+        Registro objReg3 = new Registro(10205, LocalDate.of(2023, 9, 17), objRec1);
         
         ServicoQuarto objSeQ1 = new ServicoQuarto(102, "Limpar o banhero");
         ServicoQuarto objSeQ2 = new ServicoQuarto(103, "Café da manhã");
@@ -45,48 +45,41 @@ public class Aplic {
         /*
             ULTILIZANDO OS ADDs E SETs
         */
-        objHos1.addRegistro(objReg1);
-        objHos1.addRegistro(objReg2);
         objHos1.setEndereco("R. Rio Branco, 1241");
         objHos1.setTelefone("(11)94607-8932");
         objHos1.setTaxaDesconto(10);
         
-        objHos2.addRegistro(objReg2);
-        objHos2.addRegistro(objReg3);
         objHos2.setEndereco("R. Natal, 448");
         objHos2.setTelefone("(11)96184-3277");
         objHos2.setTaxaDesconto(50);
                 
-        objRec1.addRegistro(objReg1);
-        objRec1.addRegistro(objReg3);
+        
         objRec1.setEndereco("R. Arnaldo Pereira, 171");
         objRec1.setTelefone("(11)91928-3746");
         objRec1.setTurno("Diurno");
         
-        objRec2.addRegistro(objReg2);
         objRec2.setEndereco("R. Luiz Gonsalves, 69");
         objRec2.setTelefone("(11)94637-2819");
         objRec2.setTurno("Noturno");
         
+        objSeQ1.setValor(10);
+        objSeQ2.setValor(20);
+        objSeQ3.setValor(30);
+        
         objReg1.addServicoQuarto(objSeQ1);
-        objReg1.setHospede(objHos1);
-        objReg1.setQuarto(objQua1);
-        objReg1.setDataSaida(LocalDate.of(2023, 10, 23));
+        objReg1.addServicoQuarto(objSeQ2);
+        objReg1.setDataSaida(LocalDate.of(2023, 6, 2));
         
         objReg2.addServicoQuarto(objSeQ2);
-        objReg2.setHospede(objHos2);
-        objReg2.setQuarto(objQua3);
+        objReg2.addServicoQuarto(objSeQ3);
         objReg2.setDataSaida(LocalDate.of(2023, 11, 10));
         
         objReg3.addServicoQuarto(objSeQ3);
-        objReg3.setHospede(objHos1);
-        objReg3.setQuarto(objQua2);
-        objReg3.setDataSaida(LocalDate.of(2023, 11, 20));
+        objReg3.addServicoQuarto(objSeQ1);
+        objReg3.setDataSaida(LocalDate.of(2023, 9, 27));
         
         
-        objSeQ1.setValor(17.98);
-        objSeQ2.setValor(26.49);
-        objSeQ3.setValor(9.99);
+        
         
         
         /*
@@ -100,8 +93,8 @@ public class Aplic {
         */
         
         objReg1.reservarQuarto(objHos1, objQua1);
-        objReg2.reservarQuarto(objHos2, objQua3);
-        objReg3.reservarQuarto(objHos1, objQua2);
+        objReg2.reservarQuarto(objHos2, objQua2);
+        objReg3.reservarQuarto(objHos1, objQua3);
         
         /*
         System.out.println("A Situação do quarto " + objQua1.getNumero() + " é: " + objQua1.isSituacao());
@@ -110,9 +103,9 @@ public class Aplic {
         System.out.println("\n");
         */
         
-        System.out.println("O valor da hospedagem do qurto " + objQua1.getNumero() + " ficou em: R$ " + df.format(objReg1.liberarQuarto()));
-        System.out.println("O valor da hospedagem do qurto " + objQua2.getNumero() + " ficou em: R$ " + df.format(objReg2.liberarQuarto()));
-        System.out.println("O valor da hospedagem do qurto " + objQua3.getNumero() + " ficou em: R$ " + df.format(objReg3.liberarQuarto()));
+        System.out.println("O valor da hospedagem do qurto " + objReg1.getQuarto().getNumero() + " ficou em: R$ " + df.format(objReg1.liberarQuarto()));
+        System.out.println("O valor da hospedagem do qurto " + objReg2.getQuarto().getNumero() + " ficou em: R$ " + df.format(objReg2.liberarQuarto()));
+        System.out.println("O valor da hospedagem do qurto " + objReg3.getQuarto().getNumero() + " ficou em: R$ " + df.format(objReg3.liberarQuarto()));
         System.out.println("\n");
         
         /*
@@ -133,14 +126,17 @@ public class Aplic {
         System.out.println("Data de sída: " + objReg1.getDataSaida());
         System.out.println("Nome do hóspede: " + objReg1.getHospede().getNome());
         System.out.println("Número do quarto: " + objReg1.getQuarto().getNumero());
+        objReg1.listarServicoQuarto();
         System.out.println("Nome do recepcionista: " + objReg1.getRecepcionista().getNome());
         System.out.println("Valor da hospedagem: R$ " + df.format(objReg1.getValorHospedagem()) + "\n");
+        
         
         System.out.println("Código: " + objReg2.getCodigo());
         System.out.println("Data de entrada: " + objReg2.getDataEntrada());
         System.out.println("Data de sída: " + objReg2.getDataSaida());
         System.out.println("Nome do hóspede: " + objReg2.getHospede().getNome());
         System.out.println("Número do quarto: " + objReg2.getQuarto().getNumero());
+        objReg2.listarServicoQuarto();
         System.out.println("Nome do recepcionista: " + objReg2.getRecepcionista().getNome());
         System.out.println("Valor da hospedagem: R$ " + df.format(objReg2.getValorHospedagem()) + "\n");
         
@@ -149,6 +145,7 @@ public class Aplic {
         System.out.println("Data de sída: " + objReg3.getDataSaida());
         System.out.println("Nome do hóspede: " + objReg3.getHospede().getNome());
         System.out.println("Número do quarto: " + objReg3.getQuarto().getNumero());
+        objReg3.listarServicoQuarto();
         System.out.println("Nome do recepcionista: " + objReg3.getRecepcionista().getNome());
         System.out.println("Valor da hospedagem: R$ " + df.format(objReg3.getValorHospedagem()) + "\n");
         

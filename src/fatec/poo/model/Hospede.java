@@ -37,7 +37,6 @@ public class Hospede extends Pessoa {
     
     public void addRegistro(Registro r){
         registros.add(r);
-        r.setHospede(this);
     }
     
 }

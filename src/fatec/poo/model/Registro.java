@@ -1,7 +1,7 @@
 package fatec.poo.model;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -28,14 +28,6 @@ public class Registro {
 
     public void setDataSaida(LocalDate dataSaida) {
         this.dataSaida = dataSaida;
-    }
-
-    public void setHospede(Hospede hospede) {
-        this.hospede = hospede;
-    }
-
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
     }
 
     public int getCodigo() {
@@ -70,23 +62,31 @@ public class Registro {
         servicosQuarto.add(sq);
     }
     
+    public void listarServicoQuarto(){
+        System.out.println("\tServiços de quarto utilizados:");
+        for(int i=0; i<servicosQuarto.size(); i++){
+            System.out.println("\t"+ servicosQuarto.get(i).getDescricao() + " no valor de R$"+servicosQuarto.get(i).getValor());
+        }
+    }
+    
     public void reservarQuarto(Hospede hospede, Quarto quarto){
         this.quarto = quarto;
         this.hospede = hospede;
+        hospede.addRegistro(this);
         
         this.quarto.reservar();
     }
     
     public double liberarQuarto(){
-        Period periodo = dataEntrada.until(dataSaida);
-        int qtdDias = periodo.getDays();
+        long qtdDias = ChronoUnit.DAYS.between(dataEntrada, dataSaida);
         
-        valorHospedagem = quarto.liberar(qtdDias);
+        valorHospedagem = quarto.liberar(Integer.parseInt(String.valueOf(qtdDias)));
         valorHospedagem -= (hospede.getTaxaDesconto()*valorHospedagem);
         for(int i=0; i<servicosQuarto.size(); i++){
             valorHospedagem += servicosQuarto.get(i).getValor();
         }
         
+        System.out.println("\nQtd dias no quarto " + quarto.getNumero() + " foi de " + qtdDias);
         return valorHospedagem;
     }
 }
