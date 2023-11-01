@@ -62,13 +62,6 @@ public class Registro {
         servicosQuarto.add(sq);
     }
     
-    public void listarServicoQuarto(){
-        System.out.println("\tServiços de quarto utilizados:");
-        for(int i=0; i<servicosQuarto.size(); i++){
-            System.out.println("\t"+ servicosQuarto.get(i).getDescricao() + " no valor de R$"+servicosQuarto.get(i).getValor());
-        }
-    }
-    
     public void reservarQuarto(Hospede hospede, Quarto quarto){
         this.quarto = quarto;
         this.hospede = hospede;
