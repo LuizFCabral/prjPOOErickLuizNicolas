@@ -30,11 +30,11 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
+        txtValorDiaria = new javax.swing.JTextField();
         jPanelTipoQuarto = new javax.swing.JPanel();
-        jRadioButtonSolteiro = new javax.swing.JRadioButton();
-        jRadioButtonCasal = new javax.swing.JRadioButton();
+        rdbSolteiro = new javax.swing.JRadioButton();
+        rdbCasal = new javax.swing.JRadioButton();
         btnConsultar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -52,12 +52,12 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         jPanelTipoQuarto.setToolTipText("");
         jPanelTipoQuarto.setName(""); // NOI18N
 
-        buttonGroupTipo.add(jRadioButtonSolteiro);
-        jRadioButtonSolteiro.setSelected(true);
-        jRadioButtonSolteiro.setText("Solteiro");
+        buttonGroupTipo.add(rdbSolteiro);
+        rdbSolteiro.setSelected(true);
+        rdbSolteiro.setText("Solteiro");
 
-        buttonGroupTipo.add(jRadioButtonCasal);
-        jRadioButtonCasal.setText("Casal");
+        buttonGroupTipo.add(rdbCasal);
+        rdbCasal.setText("Casal");
 
         javax.swing.GroupLayout jPanelTipoQuartoLayout = new javax.swing.GroupLayout(jPanelTipoQuarto);
         jPanelTipoQuarto.setLayout(jPanelTipoQuartoLayout);
@@ -65,9 +65,9 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
             jPanelTipoQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTipoQuartoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButtonSolteiro)
+                .addComponent(rdbSolteiro)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButtonCasal)
+                .addComponent(rdbCasal)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelTipoQuartoLayout.setVerticalGroup(
@@ -75,8 +75,8 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
             .addGroup(jPanelTipoQuartoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTipoQuartoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonSolteiro)
-                    .addComponent(jRadioButtonCasal))
+                    .addComponent(rdbSolteiro)
+                    .addComponent(rdbCasal))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -126,8 +126,8 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))))
+                            .addComponent(txtNumero)
+                            .addComponent(txtValorDiaria))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(59, Short.MAX_VALUE)
@@ -148,11 +148,11 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelTipoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
@@ -165,7 +165,6 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTipoQuarto.getAccessibleContext().setAccessibleDescription("");
         btnConsultar.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("");
@@ -188,9 +187,9 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelTipoQuarto;
-    private javax.swing.JRadioButton jRadioButtonCasal;
-    private javax.swing.JRadioButton jRadioButtonSolteiro;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JRadioButton rdbCasal;
+    private javax.swing.JRadioButton rdbSolteiro;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtValorDiaria;
     // End of variables declaration//GEN-END:variables
 }
