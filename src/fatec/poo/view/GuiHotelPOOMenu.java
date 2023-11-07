@@ -37,7 +37,7 @@ public class GuiHotelPOOMenu extends javax.swing.JFrame {
         jMenuItemReservarLiberar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("HotelPOO");
+        setTitle("Hotel POO");
 
         jMenuCadastro.setText("Cadastro");
 
