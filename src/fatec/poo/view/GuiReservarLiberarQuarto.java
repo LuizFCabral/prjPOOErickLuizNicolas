@@ -44,10 +44,10 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         txtDataSaida = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         txtRegistroFuncionario2 = new javax.swing.JTextField();
-        txtCodigo1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        txtCodigo2 = new javax.swing.JTextField();
+        txtRecepcionista = new javax.swing.JTextField();
+        btnPesquisarRecepcionista = new javax.swing.JButton();
+        btnPesquisarHospede = new javax.swing.JButton();
+        txtHospede = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnSituação = new javax.swing.JButton();
         txtSituação = new javax.swing.JTextField();
@@ -123,15 +123,15 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         txtRegistroFuncionario2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txtRegistroFuncionario2.setEnabled(false);
 
-        txtCodigo1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        txtCodigo1.setEnabled(false);
+        txtRecepcionista.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtRecepcionista.setEnabled(false);
 
-        jButton1.setText("...");
+        btnPesquisarRecepcionista.setText("...");
 
-        jButton2.setText("...");
+        btnPesquisarHospede.setText("...");
 
-        txtCodigo2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        txtCodigo2.setEnabled(false);
+        txtHospede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtHospede.setEnabled(false);
 
         jLabel8.setText("Situação");
 
@@ -170,13 +170,13 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnPesquisarRecepcionista)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnPesquisarHospede)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -204,14 +204,14 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtRegistroFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarRecepcionista))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCPFHospede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(txtHospede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarHospede))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -248,11 +248,11 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLiberar;
+    private javax.swing.JButton btnPesquisarHospede;
+    private javax.swing.JButton btnPesquisarRecepcionista;
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSituação;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -263,11 +263,11 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JFormattedTextField txtCPFHospede;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCodigo1;
-    private javax.swing.JTextField txtCodigo2;
     private javax.swing.JFormattedTextField txtDataEntrada;
     private javax.swing.JFormattedTextField txtDataSaida;
+    private javax.swing.JTextField txtHospede;
     private javax.swing.JTextField txtNQuarto;
+    private javax.swing.JTextField txtRecepcionista;
     private javax.swing.JTextField txtRegistroFuncionario1;
     private javax.swing.JTextField txtRegistroFuncionario2;
     private javax.swing.JTextField txtSituação;
