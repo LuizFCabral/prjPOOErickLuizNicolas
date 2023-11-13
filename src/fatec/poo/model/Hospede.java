@@ -35,6 +35,9 @@ public class Hospede extends Pessoa {
         return taxaDesconto;
     }
     
+    public static boolean validarCPF(String cpf){
+        return false;
+    }
     
     public void addRegistro(Registro r){
         registros.add(r);
