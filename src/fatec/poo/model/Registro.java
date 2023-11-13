@@ -74,12 +74,11 @@ public class Registro {
         long qtdDias = ChronoUnit.DAYS.between(dataEntrada, dataSaida);
         
         valorHospedagem = quarto.liberar(Integer.parseInt(String.valueOf(qtdDias)));
-        valorHospedagem -= (hospede.getTaxaDesconto()*valorHospedagem);
+        valorHospedagem -= ((hospede.getTaxaDesconto()/100)*valorHospedagem);
         for(int i=0; i<servicosQuarto.size(); i++){
             valorHospedagem += servicosQuarto.get(i).getValor();
         }
         
-        System.out.println("\nQtd dias no quarto " + quarto.getNumero() + " foi de " + qtdDias);
         return valorHospedagem;
     }
 }

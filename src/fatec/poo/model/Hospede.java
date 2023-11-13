@@ -24,7 +24,7 @@ public class Hospede extends Pessoa {
     }
 
     public void setTaxaDesconto(double taxaDesconto) {
-        this.taxaDesconto = taxaDesconto/100;
+        this.taxaDesconto = taxaDesconto;
     }
 
     public String getCpf() {
@@ -34,6 +34,7 @@ public class Hospede extends Pessoa {
     public double getTaxaDesconto() {
         return taxaDesconto;
     }
+    
     
     public void addRegistro(Registro r){
         registros.add(r);
