@@ -228,11 +228,13 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        String tipo;
         if(rdbSolteiro.isSelected()){
-            quarto = new Quarto(Integer.parseInt(txtNumero.getText()), "S", Double.parseDouble(txtValorDiaria.getText()));   
+            tipo = "S";
         }else{
-            quarto = new Quarto(Integer.parseInt(txtNumero.getText()), "D", Double.parseDouble(txtValorDiaria.getText()));
+            tipo = "D";
         }
+        quarto = new Quarto(Integer.parseInt(txtNumero.getText()), tipo, Double.parseDouble(txtValorDiaria.getText()));
         daoQuarto.inserir(quarto);
         
         txtNumero.setText("");
@@ -270,7 +272,8 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
             }
             else{
                 txtValorDiaria.setText(Double.toString(quarto.getValorDiaria()));
-                if("S".equals(quarto.getTipo())){
+                String tipo = quarto.getTipo();
+                if("S".equals(tipo)){
                     rdbSolteiro.setSelected(true);
                 }else{
                     rdbCasal.setSelected(true);
@@ -294,13 +297,14 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
-            //quarto.setValorDiaria(Double.parseDouble(txtValorDiaria.getText()));
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
+            String tipo;
             if(rdbSolteiro.isSelected()){
-                //quarto.setTipo("S");
+                tipo = "S";
             }else{
-                //quarto.setTipo("D");
+                tipo = "D";
             }
+            quarto = new Quarto(Integer.parseInt(txtNumero.getText()), tipo, Double.parseDouble(txtValorDiaria.getText()));
             daoQuarto.alterar(quarto);
         } 
         

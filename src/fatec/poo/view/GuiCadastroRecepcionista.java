@@ -259,13 +259,15 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
         recepcionista = new Recepcionista(Integer.parseInt(txtRegistroFuncional.getText()), txtNome.getText());
         recepcionista.setEndereco(txtEndereco.getText());
         recepcionista.setTelefone(txtTelefone.getText());
+        String turno;
         if(rdbManha.isSelected()){
-            recepcionista.setTurno("M");
+            turno = "M";
         }else if(rdbTarde.isSelected()){
-            recepcionista.setTurno("T");
+            turno = "T";
         }else{
-            recepcionista.setTurno("N");
+            turno = "N";
         }
+        recepcionista.setTurno(turno);
         daoRecepcionista.inserir(recepcionista);
         
         txtRegistroFuncional.setText("");
@@ -313,9 +315,10 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
                 txtNome.setText(recepcionista.getNome());
                 txtEndereco.setText(recepcionista.getEndereco());
                 txtTelefone.setText(recepcionista.getTelefone());
-                if("M".equals(recepcionista.getTurno())){
+                String turno = recepcionista.getTurno();
+                if("M".equals(turno)){
                     rdbManha.setSelected(true);
-                }else if("T".equals(recepcionista.getTurno())){
+                }else if("T".equals(turno)){
                     rdbTarde.setSelected(true);
                 }else{
                     rdbNoite.setSelected(true);
@@ -343,16 +346,18 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
-            //recepcionista.setNome(txtNome.getText());
+            recepcionista = new Recepcionista(Integer.parseInt(txtRegistroFuncional.getText()), txtNome.getText());
             recepcionista.setEndereco(txtEndereco.getText());
             recepcionista.setTelefone(txtTelefone.getText());
+            String turno;
             if(rdbManha.isSelected()){
-                recepcionista.setTurno("M");
+                turno = "M";
             }else if(rdbTarde.isSelected()){
-                recepcionista.setTurno("T");
+                turno = "T";
             }else{
-                recepcionista.setTurno("N");
+                turno = "N";
             }
+            recepcionista.setTurno(turno);
             daoRecepcionista.alterar(recepcionista);
         }
         
@@ -368,7 +373,7 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
         rdbManha.setEnabled(false);
         rdbTarde.setEnabled(false);
         rdbNoite.setEnabled(false);
-        txtNome.requestFocus();
+        txtRegistroFuncional.requestFocus();
         
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -392,7 +397,7 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
             rdbManha.setEnabled(false);
             rdbTarde.setEnabled(false);
             rdbNoite.setEnabled(false);
-            txtNome.requestFocus();
+            txtRegistroFuncional.requestFocus();
             
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);

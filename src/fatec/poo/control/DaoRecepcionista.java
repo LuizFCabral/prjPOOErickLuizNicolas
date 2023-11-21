@@ -25,7 +25,7 @@ public class DaoRecepcionista {
     public void inserir(Recepcionista recepcionista){
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("INSERT INTO tbRecepcionista(RegFunc_Rec, Nome_Rec, Endereco_Rec, Endereco_Rec, Turno_Rec) VALUES(?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO tbRecepcionista(RegFunc_Rec, Nome_Rec, Endereco_Rec, Telefone_Rec, Turno_Rec) VALUES(?,?,?,?,?)");
             ps.setInt(1, recepcionista.getRegFunc());
             ps.setString(2, recepcionista.getNome());
             ps.setString(3, recepcionista.getEndereco());
@@ -40,7 +40,7 @@ public class DaoRecepcionista {
     public void alterar(Recepcionista recepcionista){
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("UPDATE tbRecepcionista set Nome_Rec = ?, Endereco_Rec = ?, Endereco_Rec = ?, Turno_Rec = ? where RegFunc_Rec = ?");
+            ps = conn.prepareStatement("UPDATE tbRecepcionista set Nome_Rec = ?, Endereco_Rec = ?, Telefone_Rec = ?, Turno_Rec = ? where RegFunc_Rec = ?");
             ps.setString(1, recepcionista.getNome());
             ps.setString(2, recepcionista.getEndereco());
             ps.setString(3, recepcionista.getTelefone());
@@ -62,6 +62,9 @@ public class DaoRecepcionista {
             ResultSet rs = ps.executeQuery();
             if(rs.next() == true) {
                 d = new Recepcionista(regFunc, rs.getString("Nome_Rec"));
+                d.setEndereco(rs.getString("Endereco_Rec"));
+                d.setTelefone(rs.getString("Telefone_Rec"));
+                d.setTurno(rs.getString("Turno_Rec"));
             }
         }catch(SQLException ex){
             System.out.println(ex.toString());   
