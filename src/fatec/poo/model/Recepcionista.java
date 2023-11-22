@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Recepcionista extends Pessoa {
     
     private int regFunc;
-    private String turno;
+    private String turno;   //M-Manhã  T-Tarde N-Noite
     private ArrayList<Registro> registros;
 
     public Recepcionista(int regFunc, String nome){
@@ -34,6 +34,4 @@ public class Recepcionista extends Pessoa {
     public void addRegistro(Registro r){
         registros.add(r);
     }
-    
-    
 }

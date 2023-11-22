@@ -5,6 +5,11 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoQuarto;
+import fatec.poo.model.Quarto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author super
@@ -43,10 +48,20 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Quarto");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Nº Quarto");
 
         jLabel2.setText("Valor Diária");
+
+        txtValorDiaria.setEnabled(false);
 
         jPanelTipoQuarto.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
         jPanelTipoQuarto.setToolTipText("");
@@ -55,9 +70,11 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         buttonGroupTipo.add(rdbSolteiro);
         rdbSolteiro.setSelected(true);
         rdbSolteiro.setText("Solteiro");
+        rdbSolteiro.setEnabled(false);
 
         buttonGroupTipo.add(rdbCasal);
         rdbCasal.setText("Casal");
+        rdbCasal.setEnabled(false);
 
         javax.swing.GroupLayout jPanelTipoQuartoLayout = new javax.swing.GroupLayout(jPanelTipoQuarto);
         jPanelTipoQuarto.setLayout(jPanelTipoQuartoLayout);
@@ -84,18 +101,33 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         btnConsultar.setText("Consultar");
         btnConsultar.setMaximumSize(new java.awt.Dimension(99, 20));
         btnConsultar.setMinimumSize(new java.awt.Dimension(99, 23));
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setFocusPainted(false);
         btnAlterar.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setFocusPainted(false);
         btnExcluir.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -111,6 +143,11 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         btnInserir.setEnabled(false);
         btnInserir.setFocusPainted(false);
         btnInserir.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,6 +213,137 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\D20\\_workspace\\Java\\prjPOOErickLuizNicolas\\src\\fatec\\poo\\basedados\\BDPOO.accdb");
+                
+        daoQuarto = new DaoQuarto(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        String tipo;
+        if(rdbSolteiro.isSelected()){
+            tipo = "S";
+        }else{
+            tipo = "D";
+        }
+        quarto = new Quarto(Integer.parseInt(txtNumero.getText()), tipo, Double.parseDouble(txtValorDiaria.getText()));
+        daoQuarto.inserir(quarto);
+        
+        txtNumero.setText("");
+        txtNumero.setEnabled(true);
+        txtNumero.requestFocus();
+        txtValorDiaria.setText("");
+        txtValorDiaria.setEnabled(false);
+        
+        rdbSolteiro.setSelected(true);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setSelected(false);
+        rdbCasal.setEnabled(false);
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        quarto = null;
+        
+        try{
+            quarto = daoQuarto.consultar(Integer.parseInt(txtNumero.getText()));
+       
+            if (quarto == null){
+                txtNumero.setEnabled(false);
+                txtValorDiaria.setEnabled(true);
+                rdbSolteiro.setEnabled(true);
+                rdbCasal.setEnabled(true);
+                txtValorDiaria.requestFocus();
+
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(true);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);   
+            }
+            else{
+                txtValorDiaria.setText(Double.toString(quarto.getValorDiaria()));
+                String tipo = quarto.getTipo();
+                if("S".equals(tipo)){
+                    rdbSolteiro.setSelected(true);
+                }else{
+                    rdbCasal.setSelected(true);
+                }
+
+                txtNumero.setEnabled(false); 
+                txtValorDiaria.setEnabled(true);
+                rdbSolteiro.setEnabled(true);
+                rdbCasal.setEnabled(true);
+                txtValorDiaria.requestFocus();
+
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
+        }catch(NumberFormatException e){
+            txtNumero.requestFocus();
+            JOptionPane.showMessageDialog(null, "Por favor, digite um código válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
+            String tipo;
+            if(rdbSolteiro.isSelected()){
+                tipo = "S";
+            }else{
+                tipo = "D";
+            }
+            quarto = new Quarto(Integer.parseInt(txtNumero.getText()), tipo, Double.parseDouble(txtValorDiaria.getText()));
+            daoQuarto.alterar(quarto);
+        } 
+        
+        txtNumero.setText("");
+        txtValorDiaria.setText("");
+        txtNumero.setEnabled(true); 
+        txtValorDiaria.setEnabled(false);
+        rdbSolteiro.setSelected(true);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setSelected(false);
+        rdbCasal.setEnabled(false);
+        txtNumero.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoQuarto.excluir(quarto); 
+            
+            txtNumero.setText("");
+            txtValorDiaria.setText("");
+            txtNumero.setEnabled(true); 
+            txtValorDiaria.setEnabled(false);
+            txtNumero.requestFocus();
+            rdbSolteiro.setSelected(true);
+            rdbSolteiro.setEnabled(false);
+            rdbCasal.setSelected(false);
+            rdbCasal.setEnabled(false);
+            
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -192,4 +360,7 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtValorDiaria;
     // End of variables declaration//GEN-END:variables
+    private DaoQuarto daoQuarto=null;
+    private Quarto quarto=null;
+    private Conexao conexao=null;
 }
