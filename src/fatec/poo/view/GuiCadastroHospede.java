@@ -6,6 +6,9 @@
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoHospede;
+import fatec.poo.model.Hospede;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,6 +51,9 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Hóspede");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -71,18 +77,33 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
         btnConsultar.setText("Consultar");
         btnConsultar.setMaximumSize(new java.awt.Dimension(99, 20));
         btnConsultar.setMinimumSize(new java.awt.Dimension(99, 23));
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setFocusPainted(false);
         btnAlterar.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setFocusPainted(false);
         btnExcluir.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -98,6 +119,11 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
         btnInserir.setEnabled(false);
         btnInserir.setFocusPainted(false);
         btnInserir.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Endereço");
         jLabel5.setToolTipText("");
@@ -194,7 +220,137 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\super\\Documents\\MeusProjetos\\Estudos_Java\\prjPOOErickLuizNicolas\\src\\fatec\\poo\\basedados\\BDPOO.accdb");
+        
+        daoHosp = new DaoHospede(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        hospede = null;
+        try {
+            if(!Hospede.validarCPF(txtCPF.getText())){
+                JOptionPane.showMessageDialog(null, "CPF Inválido");
+                txtCPF.setText("");
+                txtCPF.requestFocus();
+            }
+            else{
+                hospede = daoHosp.consultar(txtCPF.getText());
+
+                if (hospede == null){
+                txtCPF.setEnabled(false);
+                txtNome.setEnabled(true);
+                txtDesconto.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtNome.requestFocus();
+
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(true);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+                }
+                else{
+                   txtNome.setText(hospede.getNome());
+                   txtEndereco.setText(hospede.getEndereco());
+                   txtTelefone.setText(hospede.getTelefone());
+                   txtDesconto.setText(String.valueOf(hospede.getTaxaDesconto()));
+
+                   txtCPF.setEnabled(false); 
+                   txtNome.setEnabled(true);
+                   txtEndereco.setEnabled(true);
+                   txtTelefone.setEnabled(true);
+                   txtDesconto.setEnabled(true);
+                   txtNome.requestFocus();
+
+                   btnConsultar.setEnabled(false);
+                   btnInserir.setEnabled(false);
+                   btnAlterar.setEnabled(true);
+                   btnExcluir.setEnabled(true);
+                }
+        }
+       } catch (NumberFormatException e) {
+                txtCPF.requestFocus();
+                JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        hospede = new Hospede(txtCPF.getText(), txtNome.getText());
+        hospede.setEndereco(txtEndereco.getText());
+        hospede.setTelefone(txtTelefone.getText());
+        hospede.setTaxaDesconto(Double.parseDouble(txtDesconto.getText()));
+        
+        daoHosp.inserir(hospede);
+         
+        txtCPF.setText("");
+        txtNome.setText(""); 
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtDesconto.setText("");
+        
+        btnInserir.setEnabled(false);
+        txtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtDesconto.setEnabled(false);
+        txtCPF.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+            hospede = new Hospede(txtCPF.getText(), txtNome.getText());
+            hospede.setEndereco(txtEndereco.getText());
+            hospede.setTelefone(txtTelefone.getText());
+            hospede.setTaxaDesconto(Double.parseDouble(txtDesconto.getText()));
+           
+            daoHosp.alterar(hospede);
+        } 
+        
+        txtCPF.setText("");
+        txtNome.setText(""); 
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtDesconto.setText("");
+        
+        btnInserir.setEnabled(false);
+        txtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtDesconto.setEnabled(false);
+        txtCPF.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoHosp.excluir(hospede); 
+            
+        txtCPF.setText("");
+        txtNome.setText(""); 
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtDesconto.setText("");
+        
+        btnInserir.setEnabled(false);
+        txtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtDesconto.setEnabled(false);
+        txtCPF.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        } 
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -214,4 +370,6 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
     private Conexao conexao=null;
+    private Hospede hospede=null;
+    private DaoHospede daoHosp = null;
 }

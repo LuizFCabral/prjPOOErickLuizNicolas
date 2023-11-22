@@ -35,8 +35,35 @@ public class Hospede extends Pessoa {
         return taxaDesconto;
     }
     
+    
     public static boolean validarCPF(String cpf){
-        return false;
+        cpf = cpf.replaceAll("\\.", "");
+        int valida = 0, dv1, dv2;
+        //calculo do primeiro digito verificador
+        for(int i = 0; i<9; i++){
+            valida += (Integer.parseInt(String.valueOf(cpf.charAt(i))) * (i+1));
+        }
+        
+        dv1 = valida%11;
+        if(dv1==10)
+            dv1=0;
+        
+        //calculo do segundo digito verificador
+        cpf = cpf.replaceAll("\\-", "");
+        valida = 0;
+        for(int i = 11; i>1; i--){
+            valida += (Integer.parseInt(String.valueOf(cpf.charAt(11-i))) * i);
+        }
+        
+        dv2 = (valida*10)%11;
+        if(dv2==10)
+            dv2=0;
+        
+        if(dv1== Integer.parseInt(String.valueOf(cpf.charAt(9))) && dv2==Integer.parseInt(String.valueOf(cpf.charAt(10)))){
+            return true;
+        }
+        else
+            return false;
     }
     
     public void addRegistro(Registro r){
