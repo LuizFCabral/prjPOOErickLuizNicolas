@@ -245,7 +245,7 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
         conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\D20\\_workspace\\Java\\prjPOOErickLuizNicolas\\src\\fatec\\poo\\basedados\\BDPOO.accdb");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\labfatec\\Desktop\\prjPOOErickLuizNicolas\\src\\fatec\\poo\\basedados\\BDPOO.accdb");
                 
         daoRecepcionista = new DaoRecepcionista(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
