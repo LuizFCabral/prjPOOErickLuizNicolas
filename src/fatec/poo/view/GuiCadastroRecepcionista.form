@@ -233,7 +233,8 @@
               <ComponentRef name="buttonGroup1"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Manh&#xe2;n"/>
+            <Property name="text" type="java.lang.String" value="Manh&#xe3;"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="actionCommand" type="java.lang.String" value="Manh&#xe3;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>

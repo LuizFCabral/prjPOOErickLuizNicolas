@@ -118,7 +118,8 @@ public class GuiCadastroRecepcionista extends javax.swing.JFrame {
 
         buttonGroup1.add(rdbManha);
         rdbManha.setSelected(true);
-        rdbManha.setText("Manhân");
+        rdbManha.setText("Manhã");
+        rdbManha.setToolTipText("");
         rdbManha.setActionCommand("Manhã");
         rdbManha.setEnabled(false);
 
