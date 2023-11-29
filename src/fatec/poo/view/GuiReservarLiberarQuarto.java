@@ -5,6 +5,18 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoHospede;
+import fatec.poo.control.DaoRecepcionista;
+import fatec.poo.control.DaoRegistro;
+import fatec.poo.control.DaoQuarto;
+import fatec.poo.model.Hospede;
+import fatec.poo.model.Quarto;
+import fatec.poo.model.Recepcionista;
+import fatec.poo.model.Registro;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author super
@@ -37,13 +49,13 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCPFHospede = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtRegistroFuncionario1 = new javax.swing.JTextField();
+        txtRegistroFuncional = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDataEntrada = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         txtDataSaida = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtRegistroFuncionario2 = new javax.swing.JTextField();
+        txtValorHosp = new javax.swing.JTextField();
         txtRecepcionista = new javax.swing.JTextField();
         btnPesquisarRecepcionista = new javax.swing.JButton();
         btnPesquisarHospede = new javax.swing.JButton();
@@ -51,15 +63,26 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnSituação = new javax.swing.JButton();
         txtSituação = new javax.swing.JTextField();
+        btnConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Hospedagem");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnLiberar.setText("Liberar");
         btnLiberar.setEnabled(false);
         btnLiberar.setFocusPainted(false);
         btnLiberar.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -75,6 +98,11 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         btnReservar.setEnabled(false);
         btnReservar.setFocusPainted(false);
         btnReservar.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Código");
 
@@ -95,7 +123,7 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         jLabel4.setText("N°. Quarto");
         jLabel4.setToolTipText("");
 
-        txtRegistroFuncionario1.setEnabled(false);
+        txtRegistroFuncional.setEnabled(false);
 
         jLabel5.setText("Data Entrada");
         jLabel5.setToolTipText("");
@@ -120,15 +148,27 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         jLabel7.setText("Valor Hospedagem");
         jLabel7.setToolTipText("");
 
-        txtRegistroFuncionario2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        txtRegistroFuncionario2.setEnabled(false);
+        txtValorHosp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtValorHosp.setEnabled(false);
 
         txtRecepcionista.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txtRecepcionista.setEnabled(false);
 
         btnPesquisarRecepcionista.setText("...");
+        btnPesquisarRecepcionista.setEnabled(false);
+        btnPesquisarRecepcionista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarRecepcionistaActionPerformed(evt);
+            }
+        });
 
         btnPesquisarHospede.setText("...");
+        btnPesquisarHospede.setEnabled(false);
+        btnPesquisarHospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarHospedeActionPerformed(evt);
+            }
+        });
 
         txtHospede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txtHospede.setEnabled(false);
@@ -136,9 +176,25 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         jLabel8.setText("Situação");
 
         btnSituação.setText("...");
+        btnSituação.setEnabled(false);
+        btnSituação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSituaçãoActionPerformed(evt);
+            }
+        });
 
         txtSituação.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txtSituação.setEnabled(false);
+
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultar.setText("Consultar");
+        btnConsultar.setMaximumSize(new java.awt.Dimension(99, 20));
+        btnConsultar.setMinimumSize(new java.awt.Dimension(99, 23));
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,10 +219,10 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                         .addComponent(txtDataSaida)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRegistroFuncionario1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(txtRegistroFuncional, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                                 .addComponent(txtNQuarto))
                             .addGap(76, 76, 76)))
-                    .addComponent(txtRegistroFuncionario2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorHosp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -186,6 +242,8 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                 .addGap(60, 60, 60))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +261,7 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtRegistroFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRegistroFuncional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarRecepcionista))
                 .addGap(18, 18, 18)
@@ -230,12 +288,13 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtRegistroFuncionario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorHosp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -246,7 +305,174 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        registro = null;
+        try {
+            
+            if(!txtCodigo.getText().matches("\\d")){
+                txtCodigo.setText("");
+                txtCodigo.requestFocus();
+                JOptionPane.showMessageDialog(null, "Por favor, digite um Código(Número Inteiro).");
+                
+            }
+            else{
+                registro = daoRegistro.consultar(Integer.parseInt(txtCodigo.getText()));
+                
+                if(registro == null){
+                    btnConsultar.setEnabled(false);
+                    btnReservar.setEnabled(true);
+                    txtRegistroFuncional.setEnabled(true);
+                    btnPesquisarRecepcionista.setEnabled(true);
+                }
+                else{
+                    hospede = registro.getHospede();
+                    recepcionista = registro.getRecepcionista();
+                    quarto = registro.getQuarto();
+                    
+                    
+                    txtRegistroFuncional.setText(String.valueOf(recepcionista.getRegFunc()));
+                    txtRecepcionista.setText(recepcionista.getNome());
+                    txtCPFHospede.setText(hospede.getCpf());
+                    txtHospede.setText(hospede.getNome());
+                    txtNQuarto.setText(String.valueOf(quarto.getNumero()));
+                    txtSituação.setText((quarto.isSituacao())?"Ocupado":"Disponível");
+                    txtDataEntrada.setText(String.valueOf(registro.getDataEntrada()));
+                    
+                    if(registro.getDataSaida()==null){
+                        txtDataSaida.setEnabled(true);
+                        btnLiberar.setEnabled(true);
+                        txtDataSaida.requestFocus();
+                    }
+                    else
+                        txtDataSaida.setText(String.valueOf(registro.getDataSaida()));
+                }
+            }
+
+        } catch (Exception e) {
+            txtCodigo.requestFocus();
+            JOptionPane.showMessageDialog(null, "Algo Errado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\super\\Documents\\MeusProjetos\\Estudos_Java\\prjPOOErickLuizNicolas\\src\\fatec\\poo\\basedados\\BDPOO.accdb");
+        
+        
+        daoRegistro = new DaoRegistro(conexao.conectar());
+        daoRecepcionista = new DaoRecepcionista(conexao.conectar());
+        daoQuarto = new DaoQuarto(conexao.conectar());
+        daoHospede = new DaoHospede(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnPesquisarRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarRecepcionistaActionPerformed
+        recepcionista = null;
+        
+        try{
+            recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtRegistroFuncional.getText()));
+            
+            if(recepcionista == null){
+                txtRegistroFuncional.requestFocus();
+                JOptionPane.showMessageDialog(null, "Recepcionista não cadastrado!");
+            }else{
+                txtRecepcionista.setText(recepcionista.getNome());
+                txtRegistroFuncional.setEnabled(false);
+                btnPesquisarRecepcionista.setEnabled(false);
+                txtCPFHospede.setEnabled(true);
+                btnPesquisarHospede.setEnabled(true);
+                txtCPFHospede.requestFocus();
+            }
+        }catch(NumberFormatException e){
+            txtRegistroFuncional.requestFocus();
+            JOptionPane.showMessageDialog(null, "Por favor, digite um código válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPesquisarRecepcionistaActionPerformed
+
+    private void btnPesquisarHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarHospedeActionPerformed
+        hospede = null;
+        
+        try{
+            hospede = daoHospede.consultar(txtCPFHospede.getText());
+            
+            if(hospede == null){
+                txtCPFHospede.requestFocus();
+                JOptionPane.showMessageDialog(null, "Hospede não cadastrado!");
+            }else{
+                txtHospede.setText(hospede.getNome());
+                txtCPFHospede.setEnabled(false);
+                btnPesquisarHospede.setEnabled(false);
+                txtNQuarto.setEnabled(true);
+                btnSituação.setEnabled(true);
+                txtNQuarto.requestFocus();
+            }
+        }catch(NumberFormatException e){
+            txtRegistroFuncional.requestFocus();
+            JOptionPane.showMessageDialog(null, "Por favor, digite um código válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPesquisarHospedeActionPerformed
+
+    private void btnSituaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSituaçãoActionPerformed
+        quarto = null;
+        
+        try{
+            quarto = daoQuarto.consultar(Integer.parseInt(txtNQuarto.getText()));
+            
+            if(quarto == null){
+                txtNQuarto.requestFocus();
+                JOptionPane.showMessageDialog(null, "Quarto não cadastrado!");
+            }else{
+                if(quarto.isSituacao()){
+                    JOptionPane.showMessageDialog(null, "Quarto ocupado!");
+                    txtNQuarto.setText("");
+                    txtNQuarto.requestFocus();
+                }
+                else{
+                    txtSituação.setText("Disponível");
+                    txtNQuarto.setEnabled(false);
+                    btnSituação.setEnabled(false);
+                    txtDataEntrada.setEnabled(true);
+                    btnReservar.setEnabled(true);
+                    txtDataEntrada.requestFocus();
+                }
+            }
+        }catch(NumberFormatException e){
+            txtRegistroFuncional.requestFocus();
+            JOptionPane.showMessageDialog(null, "Por favor, digite um código válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSituaçãoActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        registro = new Registro(Integer.parseInt(txtCodigo.getText()), LocalDate.parse(txtDataEntrada.getText()), recepcionista);
+        registro.reservarQuarto(hospede, quarto);
+        
+        daoRegistro.inserir(registro);
+        
+        txtCodigo.setText("");
+        txtRegistroFuncional.setText("");
+        txtRecepcionista.setText("");
+        txtCPFHospede.setText("");
+        txtHospede.setText("");
+        txtNQuarto.setText("");
+        txtSituação.setText("");
+        txtDataEntrada.setText("");
+        
+        txtCodigo.requestFocus();
+        
+        btnReservar.setEnabled(false);
+        btnConsultar.setEnabled(true);
+        
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
+        txtValorHosp.setText(String.valueOf(registro.liberarQuarto()));
+        btnLiberar.setEnabled(false);
+        txtDataSaida.setEnabled(false);
+    }//GEN-LAST:event_btnLiberarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLiberar;
     private javax.swing.JButton btnPesquisarHospede;
     private javax.swing.JButton btnPesquisarRecepcionista;
@@ -268,8 +494,17 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
     private javax.swing.JTextField txtHospede;
     private javax.swing.JTextField txtNQuarto;
     private javax.swing.JTextField txtRecepcionista;
-    private javax.swing.JTextField txtRegistroFuncionario1;
-    private javax.swing.JTextField txtRegistroFuncionario2;
+    private javax.swing.JTextField txtRegistroFuncional;
     private javax.swing.JTextField txtSituação;
+    private javax.swing.JTextField txtValorHosp;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao=null;
+    private Registro registro = null;
+    private DaoRegistro daoRegistro = null;
+    private Hospede hospede=null;
+    private DaoHospede daoHospede=null;
+    private Quarto quarto =null;
+    private DaoQuarto daoQuarto=null;
+    private Recepcionista recepcionista=null;
+    private DaoRecepcionista daoRecepcionista=null;
 }

@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -44,13 +47,13 @@
                       <Component id="txtDataSaida" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtRegistroFuncionario1" alignment="0" pref="130" max="32767" attributes="0"/>
+                              <Component id="txtRegistroFuncional" alignment="0" pref="130" max="32767" attributes="0"/>
                               <Component id="txtNQuarto" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="76" pref="76" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="txtRegistroFuncionario2" min="-2" pref="130" max="-2" attributes="0"/>
+                  <Component id="txtValorHosp" min="-2" pref="130" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -76,6 +79,8 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnConsultar" min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnReservar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnLiberar" min="-2" max="-2" attributes="0"/>
@@ -96,7 +101,7 @@
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroFuncionario1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtRegistroFuncional" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtRecepcionista" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPesquisarRecepcionista" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -128,13 +133,14 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRegistroFuncionario2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtValorHosp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnReservar" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="btnLiberar" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="btnSair" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="btnConsultar" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
@@ -154,6 +160,9 @@
           <Dimension value="[99, 20]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLiberarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
@@ -181,6 +190,9 @@
           <Dimension value="[99, 20]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -219,7 +231,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroFuncionario1">
+    <Component class="javax.swing.JTextField" name="txtRegistroFuncional">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -258,7 +270,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtRegistroFuncionario2">
+    <Component class="javax.swing.JTextField" name="txtValorHosp">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -281,12 +293,20 @@
     <Component class="javax.swing.JButton" name="btnPesquisarRecepcionista">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarRecepcionistaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPesquisarHospede">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarHospedeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtHospede">
       <Properties>
@@ -306,7 +326,11 @@
     <Component class="javax.swing.JButton" name="btnSitua&#xe7;&#xe3;o">
       <Properties>
         <Property name="text" type="java.lang.String" value="..."/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSitua&#xe7;&#xe3;oActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSitua&#xe7;&#xe3;o">
       <Properties>
@@ -317,6 +341,23 @@
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnConsultar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/fatec/poo/view/icon/pesq.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Consultar"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[99, 20]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[99, 23]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -30,6 +30,14 @@ public class Registro {
         this.dataSaida = dataSaida;
     }
 
+    public void setHospede(Hospede hospede) {
+        this.hospede = hospede;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+
     public int getCodigo() {
         return codigo;
     }
