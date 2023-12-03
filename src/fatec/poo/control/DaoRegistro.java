@@ -27,14 +27,13 @@ public class DaoRegistro {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("INSERT INTO tbRegistro(Codigo_Reg, RegFunc_Rec, CPF_Hosp, Numero_Qrt,"
-                    + " DataEntrada_Reg, DataSaida_Reg, ValorHosp_Reg) VALUES(?,?,?,?,?,?,?)");
+                    + " DataEntrada_Reg, ValorHosp_Reg) VALUES(?,?,?,?,?,?)");
             ps.setInt(1, registro.getCodigo());
             ps.setInt(2, registro.getRecepcionista().getRegFunc());
             ps.setString(3, registro.getHospede().getCpf());
             ps.setInt(4, registro.getQuarto().getNumero());
             ps.setDate(5, Date.valueOf(registro.getDataEntrada()));
-            ps.setDate(6, Date.valueOf(registro.getDataSaida()));
-            ps.setDouble(5, registro.getValorHospedagem());
+            ps.setDouble(6, registro.getValorHospedagem());
             
             ps.execute();
         } catch (SQLException ex) {
@@ -69,6 +68,7 @@ public class DaoRegistro {
             ps = conn.prepareStatement("SELECT * from tbRegistro where " +
                                                  "Codigo_Reg = ?");
             
+            
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
             
@@ -79,7 +79,8 @@ public class DaoRegistro {
            
             if (rs.next() == true) {
                 registro = new Registro(codigo, rs.getDate("DataEntrada_Reg").toLocalDate(), daoRecepcionista.consultar(rs.getInt("RegFunc_Rec")));
-                registro.setDataSaida(rs.getDate("DataSaida_Reg").toLocalDate());
+                if(rs.getDate("DataSaida_Reg")!=null)
+                    registro.setDataSaida(rs.getDate("DataSaida_Reg").toLocalDate());
                 registro.setHospede(daoHosp.consultar(rs.getString("CPF_Hosp")));
                 registro.setQuarto(daoQuarto.consultar(rs.getInt("Numero_Qrt")));
             }

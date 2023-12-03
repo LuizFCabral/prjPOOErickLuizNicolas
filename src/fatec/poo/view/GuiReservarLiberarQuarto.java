@@ -15,6 +15,8 @@ import fatec.poo.model.Quarto;
 import fatec.poo.model.Recepcionista;
 import fatec.poo.model.Registro;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -307,6 +309,9 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         registro = null;
+        hospede = null;
+        recepcionista = null;
+        quarto = null;
         try {
             
             if(!txtCodigo.getText().matches("\\d")){
@@ -325,6 +330,7 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                     btnPesquisarRecepcionista.setEnabled(true);
                 }
                 else{
+                    btnConsultar.setEnabled(false);
                     hospede = registro.getHospede();
                     recepcionista = registro.getRecepcionista();
                     quarto = registro.getQuarto();
@@ -336,7 +342,9 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                     txtHospede.setText(hospede.getNome());
                     txtNQuarto.setText(String.valueOf(quarto.getNumero()));
                     txtSituação.setText((quarto.isSituacao())?"Ocupado":"Disponível");
-                    txtDataEntrada.setText(String.valueOf(registro.getDataEntrada()));
+                    
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    txtDataEntrada.setText(String.valueOf(registro.getDataEntrada().format(formatter)));
                     
                     if(registro.getDataSaida()==null){
                         txtDataSaida.setEnabled(true);
@@ -350,7 +358,8 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
 
         } catch (Exception e) {
             txtCodigo.requestFocus();
-            JOptionPane.showMessageDialog(null, "Algo Errado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Algo Errado! \nErro: " + e, "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Erro: " + e.toString());
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -444,33 +453,64 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSituaçãoActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        registro = new Registro(Integer.parseInt(txtCodigo.getText()), LocalDate.parse(txtDataEntrada.getText()), recepcionista);
-        registro.reservarQuarto(hospede, quarto);
+        try{
+            LocalDate dataEntrada = formatarData(txtDataEntrada.getText());
+            if(txtDataEntrada.getText().replace("/", "")=="" || dataEntrada.isBefore(LocalDate.now())){
+                JOptionPane.showMessageDialog(null, "Digite uma data válida", "Erro:", JOptionPane.ERROR_MESSAGE);
+                txtDataEntrada.requestFocus();
+            }
+            else{
+                registro = new Registro(Integer.parseInt(txtCodigo.getText()), dataEntrada, recepcionista);
+                registro.reservarQuarto(hospede, quarto);
+
+                daoRegistro.inserir(registro);
+
+                txtCodigo.setText("");
+                txtRegistroFuncional.setText("");
+                txtRecepcionista.setText("");
+                txtCPFHospede.setText("");
+                txtHospede.setText("");
+                txtNQuarto.setText("");
+                txtSituação.setText("");
+                txtDataEntrada.setText("");
+
+                txtCodigo.requestFocus();
+
+                btnReservar.setEnabled(false);
+                btnConsultar.setEnabled(true);
+                txtDataEntrada.setEnabled(false);
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Algo Errado! \nErro: " + ex.toString(), "Erro:", JOptionPane.ERROR_MESSAGE);
+        }
         
-        daoRegistro.inserir(registro);
-        
-        txtCodigo.setText("");
-        txtRegistroFuncional.setText("");
-        txtRecepcionista.setText("");
-        txtCPFHospede.setText("");
-        txtHospede.setText("");
-        txtNQuarto.setText("");
-        txtSituação.setText("");
-        txtDataEntrada.setText("");
-        
-        txtCodigo.requestFocus();
-        
-        btnReservar.setEnabled(false);
-        btnConsultar.setEnabled(true);
         
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
-        txtValorHosp.setText(String.valueOf(registro.liberarQuarto()));
-        btnLiberar.setEnabled(false);
-        txtDataSaida.setEnabled(false);
+        LocalDate dataSaida = formatarData(txtDataSaida.getText());
+        LocalDate dataEntrada = formatarData(txtDataEntrada.getText());
+        if(txtDataSaida.getText().replace("/", "")=="" || dataSaida.isBefore(LocalDate.now()) || dataSaida.isBefore(dataEntrada)){
+            JOptionPane.showMessageDialog(null, "Digite uma data válida", "Erro:", JOptionPane.ERROR_MESSAGE);
+            txtDataSaida.requestFocus();
+        }
+        else{
+            registro.setDataSaida(dataSaida);
+            txtValorHosp.setText(String.valueOf(registro.liberarQuarto()));
+            btnLiberar.setEnabled(false);
+            txtDataSaida.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_btnLiberarActionPerformed
 
+    private LocalDate formatarData(String dataText){
+        LocalDate data = LocalDate.of(Integer.parseInt(dataText.substring(6)), 
+        Integer.parseInt(dataText.substring(3,5)), 
+        Integer.parseInt(dataText.substring(0,2)));
+        
+        return data;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLiberar;

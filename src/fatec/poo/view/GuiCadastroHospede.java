@@ -269,7 +269,7 @@ public class GuiCadastroHospede extends javax.swing.JFrame {
         }
        } catch (NumberFormatException e) {
                 txtCPF.requestFocus();
-                JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido(Número Inteiro).", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnConsultarActionPerformed
 

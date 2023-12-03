@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/labfatec/Desktop/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiCadastroHospede.java</file>
-            <file>file:/C:/Users/labfatec/Desktop/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiCadastroRecepcionista.java</file>
-            <file>file:/C:/Users/labfatec/Desktop/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiServicoQuarto.java</file>
-            <file>file:/C:/Users/labfatec/Desktop/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiCadastroQuarto.java</file>
-            <file>file:/C:/Users/labfatec/Desktop/prjPOOErickLuizNicolas/src/fatec/poo/model/Hospede.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/control/DaoHospede.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiCadastroHospede.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/control/DaoRegistro.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiCadastroRecepcionista.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/model/Quarto.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/model/Registro.java</file>
+            <file>file:/C:/Users/super/Documents/MeusProjetos/Estudos_Java/prjPOOErickLuizNicolas/src/fatec/poo/view/GuiReservarLiberarQuarto.java</file>
         </group>
     </open-files>
 </project-private>
