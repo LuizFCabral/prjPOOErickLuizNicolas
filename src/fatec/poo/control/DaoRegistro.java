@@ -25,6 +25,8 @@ public class DaoRegistro {
     
     public void inserir(Registro registro) {
         PreparedStatement ps = null;
+        
+        DaoQuarto daoQuarto = new DaoQuarto(conn);
         try {
             ps = conn.prepareStatement("INSERT INTO tbRegistro(Codigo_Reg, RegFunc_Rec, CPF_Hosp, Numero_Qrt,"
                     + " DataEntrada_Reg, ValorHosp_Reg) VALUES(?,?,?,?,?,?)");
@@ -35,6 +37,7 @@ public class DaoRegistro {
             ps.setDate(5, Date.valueOf(registro.getDataEntrada()));
             ps.setDouble(6, registro.getValorHospedagem());
             
+            daoQuarto.alterar(registro.getQuarto());
             ps.execute();
         } catch (SQLException ex) {
              System.out.println(ex.toString());   
@@ -43,6 +46,8 @@ public class DaoRegistro {
     
     public void alterar(Registro registro) {
         PreparedStatement ps = null;
+        
+        DaoQuarto daoQuarto = new DaoQuarto(conn);
         try {
             ps = conn.prepareStatement("UPDATE tbRegistro set Codigo_Reg = ?, RegFunc_Rec = ?, CPF_Hosp = ?, Numero_Qrt = ?,"
                     + " DataEntrada_Reg = ?, DataSaida_Reg = ?, ValorHosp_Reg = ? WHERE Codigo_Reg = ?");
@@ -54,6 +59,8 @@ public class DaoRegistro {
             ps.setDouble(6, registro.getValorHospedagem());
             ps.setInt(7, registro.getCodigo());
             
+            
+            daoQuarto.alterar(registro.getQuarto());
             ps.execute();
         } catch (SQLException ex) {
              System.out.println(ex.toString());   

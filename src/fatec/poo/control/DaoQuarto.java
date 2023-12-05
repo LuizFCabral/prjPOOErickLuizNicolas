@@ -39,10 +39,11 @@ public class DaoQuarto {
     public void alterar(Quarto quarto){
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("UPDATE tbQuarto set Tipo_Qrt = ?, ValorDiaria_Qrt = ? where Numero_Qrt = ?");
+            ps = conn.prepareStatement("UPDATE tbQuarto set Tipo_Qrt = ?, ValorDiaria_Qrt = ?, Situacao_Qrt = ? where Numero_Qrt = ?");
             ps.setString(1, quarto.getTipo());
             ps.setDouble(2, quarto.getValorDiaria());
-            ps.setInt(3, quarto.getNumero());
+            ps.setBoolean(3, quarto.isSituacao());
+            ps.setInt(4, quarto.getNumero());
             ps.execute();
         }catch(SQLException ex){
             System.out.println(ex.toString());   
@@ -50,7 +51,7 @@ public class DaoQuarto {
     }
     
     public Quarto consultar(int numero){
-        Quarto d = null;
+        Quarto quarto = null;
         
         PreparedStatement ps = null;
         try{
@@ -58,12 +59,14 @@ public class DaoQuarto {
             ps.setInt(1, numero);
             ResultSet rs = ps.executeQuery();
             if(rs.next() == true) {
-                d = new Quarto(numero, rs.getString("Tipo_Qrt"), rs.getDouble("ValorDiaria_Qrt"));
+                quarto = new Quarto(numero, rs.getString("Tipo_Qrt"), rs.getDouble("ValorDiaria_Qrt"));
+                if(rs.getBoolean("Situacao_Qrt"))
+                    quarto.reservar();
             }
         }catch(SQLException ex){
             System.out.println(ex.toString());   
         }
-        return(d);
+        return(quarto);
     }
     
     public void excluir(Quarto quarto){

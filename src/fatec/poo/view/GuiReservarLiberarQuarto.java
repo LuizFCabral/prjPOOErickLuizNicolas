@@ -328,6 +328,7 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                     btnReservar.setEnabled(true);
                     txtRegistroFuncional.setEnabled(true);
                     btnPesquisarRecepcionista.setEnabled(true);
+                    txtRegistroFuncional.requestFocus();
                 }
                 else{
                     btnConsultar.setEnabled(false);
@@ -341,6 +342,7 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
                     txtCPFHospede.setText(hospede.getCpf());
                     txtHospede.setText(hospede.getNome());
                     txtNQuarto.setText(String.valueOf(quarto.getNumero()));
+                    System.out.println(quarto.isSituacao());
                     txtSituação.setText((quarto.isSituacao())?"Ocupado":"Disponível");
                     
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -462,7 +464,6 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
             else{
                 registro = new Registro(Integer.parseInt(txtCodigo.getText()), dataEntrada, recepcionista);
                 registro.reservarQuarto(hospede, quarto);
-
                 daoRegistro.inserir(registro);
 
                 txtCodigo.setText("");
@@ -491,13 +492,14 @@ public class GuiReservarLiberarQuarto extends javax.swing.JFrame {
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         LocalDate dataSaida = formatarData(txtDataSaida.getText());
         LocalDate dataEntrada = formatarData(txtDataEntrada.getText());
-        if(txtDataSaida.getText().replace("/", "")=="" || dataSaida.isBefore(LocalDate.now()) || dataSaida.isBefore(dataEntrada)){
+        if(txtDataSaida.getText().replace("/", "") == "" || dataSaida.isBefore(LocalDate.now()) || dataSaida.isBefore(dataEntrada)){
             JOptionPane.showMessageDialog(null, "Digite uma data válida", "Erro:", JOptionPane.ERROR_MESSAGE);
             txtDataSaida.requestFocus();
         }
         else{
             registro.setDataSaida(dataSaida);
             txtValorHosp.setText(String.valueOf(registro.liberarQuarto()));
+            daoRegistro.alterar(registro);
             btnLiberar.setEnabled(false);
             txtDataSaida.setEnabled(false);
         }
